@@ -1,5 +1,7 @@
 using System.Globalization;
 using BankManagementApp.Data;
+using BankManagementApp.Interfaces;
+using BankManagementApp.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,12 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 // CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
 
 // Add services to the container.
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDBContext>(options =>{
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+
+builder.Services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
 
 var app = builder.Build();
 
