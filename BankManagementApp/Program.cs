@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
-CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+// CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+// CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
