@@ -31,15 +31,22 @@ namespace BankManagementApp.Repository
             return await _context.AccountTypes.ToListAsync();
         }
 
-        // public Task<List<AccountType>> GetByIdAsync()
-        // {
-        //     throw new NotImplementedException();
-        // }
+        public async Task<AccountType?> GetByIdAsync(int id)
+        {
+            var accountTypeModel = await _context.AccountTypes.FirstOrDefaultAsync(x => x.Id == id);
+            return accountTypeModel == null ? null : accountTypeModel;
+        }
 
-        // public Task<List<AccountType>> UpdateAsync()
-        // {
-        //     throw new NotImplementedException();
-        // }
-      
+        public async Task<AccountType?> UpdateAsync(int id, AccountType accountTypeModel)
+        {
+            var existingAccountType = await _context.AccountTypes.FindAsync(id);
+            if (existingAccountType == null) return null;
+
+            existingAccountType.AccountTypeName = accountTypeModel.AccountTypeName;
+            existingAccountType.isMultiCurrency = accountTypeModel.isMultiCurrency;
+
+            await _context.SaveChangesAsync();
+            return existingAccountType;
+        }
     }
 }

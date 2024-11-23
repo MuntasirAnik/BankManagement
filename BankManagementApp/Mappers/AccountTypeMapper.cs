@@ -9,7 +9,7 @@ namespace BankManagementApp.Mappers
 {
     public static class AccountTypeMapper
     {
-        public static AccountTypeDto ToAccountTypeDto(this AccountTypeDto accountTypeModel)
+        public static AccountTypeDto ToAccountTypeDto(this AccountType accountTypeModel)
         {
             return new AccountTypeDto
             {
@@ -28,9 +28,9 @@ namespace BankManagementApp.Mappers
             };
         }
 
-         public static AccountTypeDto ToAccountTypeUpdate (this UpdateAccountTypeDto accountTypeModel)
+         public static AccountType ToAccountTypeUpdate (this UpdateAccountTypeDto accountTypeModel)
         {
-            return new AccountTypeDto
+            return new AccountType
             {
                 AccountTypeName = accountTypeModel.AccountTypeName,
                 isMultiCurrency = accountTypeModel.isMultiCurrency

@@ -10,8 +10,8 @@ namespace BankManagementApp.Interfaces
     public interface IAccountTypeRepository
     {
         Task<List<AccountType>> GetAllAsync();
-        // Task<List<AccountType>> GetByIdAsync();
-        Task<AccountType> CreateAsync(AccountType accountTypeDto);
-        // Task<List<AccountType>> UpdateAsync();
+        Task<AccountType?> GetByIdAsync(int id);
+        Task<AccountType> CreateAsync(AccountType accountTypeModel);
+        Task<AccountType?> UpdateAsync(int id, AccountType accountType);
     }
 }
