@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BankManagementApp.Data;
+using BankManagementApp.DTOs.AccountType;
 using BankManagementApp.Interfaces;
 using BankManagementApp.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace BankManagementApp.Repository
@@ -17,9 +19,11 @@ namespace BankManagementApp.Repository
             _context = context;
         }
 
-        public Task<List<AccountType>> CreateAsync()
+        public async Task<AccountType> CreateAsync(AccountType accountType)
         {
-            throw new NotImplementedException();
+            await _context.AccountTypes.AddAsync(accountType);
+            await _context.SaveChangesAsync();
+            return accountType;  
         }
 
         public async Task<List<AccountType>> GetAllAsync()
@@ -27,14 +31,15 @@ namespace BankManagementApp.Repository
             return await _context.AccountTypes.ToListAsync();
         }
 
-        public Task<List<AccountType>> GetByIdAsync()
-        {
-            throw new NotImplementedException();
-        }
+        // public Task<List<AccountType>> GetByIdAsync()
+        // {
+        //     throw new NotImplementedException();
+        // }
 
-        public Task<List<AccountType>> UpdateAsync()
-        {
-            throw new NotImplementedException();
-        }
+        // public Task<List<AccountType>> UpdateAsync()
+        // {
+        //     throw new NotImplementedException();
+        // }
+      
     }
 }
