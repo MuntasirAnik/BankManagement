@@ -17,6 +17,7 @@ namespace BankManagementApp.Mappers
                 AccountTypeId = dto.AccountTypeId,
                 AccountNo = dto.AccountNo,
                 Balance = dto.Balance,
+                isMultiCurrency = dto.isMultiCurrency,
                 OpenedOn = dto.OpenedOn
             };
         }
@@ -29,6 +30,7 @@ namespace BankManagementApp.Mappers
                 AccountTypeId = accountModel.AccountTypeId,
                 AccountNo = accountModel.AccountNo,
                 Balance = accountModel.Balance,
+                isMultiCurrency = accountModel.isMultiCurrency,
                 OpenedOn = accountModel.OpenedOn,
                 Transactions = accountModel.Transactions.Select(x => x.TotransactionDto()).ToList()
             };

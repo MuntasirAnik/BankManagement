@@ -15,6 +15,7 @@ namespace BankManagementApp.DTOs.Accounts
         [MaxLength(17, ErrorMessage = "Account No can not be over 17 digit")]
         public string AccountNo { get; set; }
         public decimal Balance { get; set; }
+        public bool isMultiCurrency { get; set; } = false;
         public DateTime OpenedOn { get; set; }
 
     }

@@ -12,6 +12,7 @@ namespace BankManagementApp.DTOs.Accounts
         public int AccountTypeId { get; set; }
         public string AccountNo { get; set; } = string.Empty;
         public decimal Balance { get; set; }
+        public bool isMultiCurrency { get; set; }
         public DateTime OpenedOn { get; set; }
         public List<TransactionDto>? Transactions{ get; set; }
     }
