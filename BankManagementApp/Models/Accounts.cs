@@ -14,9 +14,23 @@ namespace BankManagementApp.Models
         public int AccountTypeId { get; set; }
         public AccountType AccountType { get; set; }
         public string AccountNo { get; set; } = string.Empty;
-        public decimal Balance { get; set; } = 0;
+        private decimal Balance { get; set; } = 0;
         public bool isMultiCurrency { get; set; } = false;
         public DateTime OpenedOn { get; set; } = DateTime.Now;
         public List<Transaction> Transactions { get; set; } = new List<Transaction>();
+
+        // public decimal GetBalance()
+        // {
+        //     GetBalancereturn Balance;
+        // }
+
+        public Decimal balance
+        {
+    
+            get { return Balance; }
+    
+            set { Balance += value; }
+        }
+
     }
 }

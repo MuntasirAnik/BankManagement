@@ -16,7 +16,7 @@ namespace BankManagementApp.Mappers
                 CustomerId = dto.CustomerId,
                 AccountTypeId = dto.AccountTypeId,
                 AccountNo = dto.AccountNo,
-                Balance = dto.Balance,
+                // Balance = dto.Balance,
                 isMultiCurrency = dto.isMultiCurrency,
                 OpenedOn = dto.OpenedOn
             };
@@ -29,7 +29,7 @@ namespace BankManagementApp.Mappers
                 CustomerId = accountModel.CustomerId,
                 AccountTypeId = accountModel.AccountTypeId,
                 AccountNo = accountModel.AccountNo,
-                Balance = accountModel.Balance,
+                // Balance = accountModel.Balance,
                 isMultiCurrency = accountModel.isMultiCurrency,
                 OpenedOn = accountModel.OpenedOn,
                 Transactions = accountModel.Transactions.Select(x => x.TotransactionDto()).ToList()
