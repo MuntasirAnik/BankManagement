@@ -166,13 +166,13 @@ namespace BankManagementApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BankManagementApp.Models.Customer", "Customer")
+                    b.HasOne("BankManagementApp.Models.Customer", "Customers")
                         .WithMany("Accounts")
                         .HasForeignKey("CustomerId");
 
                     b.Navigation("AccountType");
 
-                    b.Navigation("Customer");
+                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("BankManagementApp.Models.Transaction", b =>

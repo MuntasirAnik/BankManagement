@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankManagementApp.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20241125041922_multicurrencyAdded")]
-    partial class multicurrencyAdded
+    [Migration("20241125095151_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,13 +169,13 @@ namespace BankManagementApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BankManagementApp.Models.Customer", "Customer")
+                    b.HasOne("BankManagementApp.Models.Customer", "Customers")
                         .WithMany("Accounts")
                         .HasForeignKey("CustomerId");
 
                     b.Navigation("AccountType");
 
-                    b.Navigation("Customer");
+                    b.Navigation("Customers");
                 });
 
             modelBuilder.Entity("BankManagementApp.Models.Transaction", b =>
