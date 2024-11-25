@@ -16,6 +16,10 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>{
 
 
 builder.Services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<AccountRepository>();
+builder.Services.AddScoped<TransaactionRepository>();
+
 
 var app = builder.Build();
 

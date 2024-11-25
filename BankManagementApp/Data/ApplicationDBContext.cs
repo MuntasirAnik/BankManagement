@@ -12,5 +12,8 @@ namespace BankManagementApp.Data
 
         public DbSet<Test> Tests { get; set; }
         public DbSet<AccountType> AccountTypes { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
     }
 }

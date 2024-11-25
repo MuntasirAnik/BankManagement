@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BankManagementApp.Data;
 using BankManagementApp.DTOs.AccountType;
 using BankManagementApp.Interfaces;
@@ -51,8 +47,8 @@ namespace BankManagementApp.Controllers
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
             var accountTypeModel = accoutnTypeDto.AccountTypeCreate();
-            var x = await _accountTypeRepo.CreateAsync(accountTypeModel);
-            return Ok(x); 
+            await _accountTypeRepo.CreateAsync(accountTypeModel);
+            return Ok(accountTypeModel); 
         }
 
         [HttpPut]

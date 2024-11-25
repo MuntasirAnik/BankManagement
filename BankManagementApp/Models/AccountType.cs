@@ -9,7 +9,7 @@ namespace BankManagementApp.Models
     public class AccountType
     {
         public int Id { get; set; }
-        public string AccountTypeName { get; set; }
+        public string AccountTypeName { get; set; } = string.Empty;
         public bool isMultiCurrency { get; set; } = false;
         
     }
