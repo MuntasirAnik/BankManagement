@@ -31,7 +31,7 @@ namespace BankManagementApp.Repository
             return await _context.Accounts
                 .Where(c => c.CustomerId == customerId)
                 .Include(a => a.AccountType)  
-                // .Include(a => a.Customer) 
+                .Include(a => a.Customers) 
                 .Include(t => t.Transactions)  
                 .ToListAsync(); 
         }

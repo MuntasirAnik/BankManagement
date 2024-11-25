@@ -10,7 +10,7 @@ namespace BankManagementApp.Models
     {
         public int Id { get; set; }
         public int? CustomerId { get; set; }
-        public Customer? Customer { get; set; }
+        public Customer? Customers { get; set; }
         public int AccountTypeId { get; set; }
         public AccountType AccountType { get; set; }
         public string AccountNo { get; set; } = string.Empty;
