@@ -28,18 +28,26 @@ namespace BankManagementApp.Repository
         }
        public async Task<List<Account>> GetAllAccountByCustomerId(int customerId)
         {
-            return await _context.Accounts
+            try
+            {
+                return await _context.Accounts
                 .Where(c => c.CustomerId == customerId)
                 .Include(a => a.AccountType)  
                 .Include(a => a.Customers) 
                 .Include(t => t.Transactions)  
                 .ToListAsync(); 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<Account?> GetAccountByAccountId(int id)
         {
             return await _context.Accounts
             .Include(a => a.AccountType)
+            // .Include(a => a.Customers) 
             .Include(t => t.Transactions) 
             .FirstOrDefaultAsync(x=>x.Id == id);
         }

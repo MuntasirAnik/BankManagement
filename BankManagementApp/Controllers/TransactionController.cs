@@ -30,7 +30,6 @@ namespace BankManagementApp.Controllers
             if (account == null) 
                 return NotFound("Account not found.");
 
-            // Calculate the new balance
             if (transactionDto.IsCredit)
             {
                 account.Balance += transactionDto.Amount; 
@@ -38,13 +37,12 @@ namespace BankManagementApp.Controllers
             else
             {
                 if (account.Balance < transactionDto.Amount)
-                    return BadRequest("Insufficient balance."); // Prevent overdraft
+                    return BadRequest("Insufficient balance.");
 
                 account.Balance -= transactionDto.Amount; 
             }
             var transaction = transactionDto.ToCreateTransaction();
 
-            // Save the transaction and update the account
             await _transaactionRepo.CreateTransaction(transaction);
             // await _accountRepo.UpdateAccount(account);
 
