@@ -1,3 +1,4 @@
+using BankManagementApp.BLL;
 using BankManagementApp.Data;
 using BankManagementApp.Interfaces;
 using BankManagementApp.Models;
@@ -53,6 +54,10 @@ builder.Services.AddScoped<IAccountTypeRepository, AccountTypeRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<AccountRepository>();
 builder.Services.AddScoped<TransaactionRepository>();
+builder.Services.AddScoped<TransferTypeRepository>();
+builder.Services.AddScoped<FundTransferRepository>();
+builder.Services.AddScoped<FundTransferBLL>();
+
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

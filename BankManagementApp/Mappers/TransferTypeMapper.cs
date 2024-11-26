@@ -9,14 +9,6 @@ namespace BankManagementApp.Mappers
 {
     public static class TransferTypeMapper
     {
-        public static TransferTypeDto ToTransferTypeDto(this TransferTypeDto transferType)
-        {
-            return new TransferTypeDto
-            {
-                TransferTypeName = transferType.TransferTypeName,
-                Description = transferType.Description,
-            };
-        }
 
         public static TransferType ToCreateTransferType(this CreateTransferTypeDto transferTypeModel)
         {
@@ -24,6 +16,14 @@ namespace BankManagementApp.Mappers
             {
                 TransferTypeName = transferTypeModel.TransferTypeName,
                 Description = transferTypeModel?.Description,
+            };
+        }
+        public static TransferTypeDto ToTransferTypeDto(this TransferTypeDto transferType)
+        {
+            return new TransferTypeDto
+            {
+                TransferTypeName = transferType.TransferTypeName,
+                Description = transferType.Description,
             };
         }
     }

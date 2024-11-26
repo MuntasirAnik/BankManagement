@@ -71,7 +71,6 @@ namespace BankManagementApp.Controllers
         {
             return await RegisterWithRole(registerDto, "Employee");
         }
-
         private async Task<IActionResult> RegisterWithRole(RegisterDto registerDto, string role)
         {
             try

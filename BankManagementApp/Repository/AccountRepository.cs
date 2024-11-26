@@ -26,6 +26,10 @@ namespace BankManagementApp.Repository
         {
             return await _context.Accounts.Include(a => a.AccountType).ToListAsync();
         }
+        public async Task<Account> GetAccountByNo(string accountNo)
+        {
+            return await _context.Accounts.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
+        }
        public async Task<List<Account>> GetAllAccountByCustomerId(int customerId)
         {
             try

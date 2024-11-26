@@ -34,13 +34,13 @@ namespace BankManagementApp.Controllers
             {
                 if(transactionDto.Amount >0)
                 {
-                    account.balance = transactionDto.Amount;
+                    account.Balance = transactionDto.Amount;
                 }
                 // account.Balance += transactionDto.Amount; 
             }
             else
             {
-                account.balance = -transactionDto.Amount;
+                account.Balance = -transactionDto.Amount;
                 // if (account.Balance < transactionDto.Amount)
                 //     return BadRequest("Insufficient balance.");
 
@@ -55,7 +55,7 @@ namespace BankManagementApp.Controllers
             {
                 Message = "Transaction successful.",
                 Transaction = transaction,
-                NewBalance = account.balance,
+                NewBalance = account.Balance,
             });
         }
 

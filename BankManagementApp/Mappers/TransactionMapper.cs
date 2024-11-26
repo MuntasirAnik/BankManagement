@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BankManagementApp.DTOs.FundTransfer;
 using BankManagementApp.DTOs.Transaction;
 using BankManagementApp.Models;
 
@@ -19,7 +16,18 @@ namespace BankManagementApp.Mappers
                 Description = transactionDto.Description,
             };
         }
-
+        public static Transaction ToTransactionFromFundTransfer(this CreateFundTransferDto fundTransferDto, int accountId, bool isCredit, string description)
+        {
+            if (fundTransferDto == null) throw new ArgumentNullException(nameof(fundTransferDto));
+            return new Transaction
+            {
+                AccountId = accountId,
+                Amount = fundTransferDto.TransferAmount,
+                IsCredit = isCredit,
+                Description = description,
+                TransactionDate = DateTime.Now
+            };
+        }
         public static TransactionDto TotransactionDto(this Transaction transactionModel)
         {
             return new TransactionDto

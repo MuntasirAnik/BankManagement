@@ -4,6 +4,7 @@ using BankManagementApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankManagementApp.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241126094352_transferType")]
+    partial class transferType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -301,19 +304,19 @@ namespace BankManagementApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "952673fb-69a9-414b-90ab-40747faab6a0",
+                            Id = "5a0e7430-203c-43c1-bbbc-87683862eb09",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "961fd82e-2157-41ca-89ef-95849ad67c51",
+                            Id = "22248143-d308-4d80-9f28-b2f2b86d6157",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "4d8a31a7-1739-4d03-a658-c25e391b563a",
+                            Id = "486a32ec-f32d-49f2-b702-e31f0342133b",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
