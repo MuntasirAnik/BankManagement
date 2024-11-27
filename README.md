@@ -7,9 +7,9 @@
 
 # How To Run
  * Clone the code
- * checkout to ```dev``` branch
- * install required nuget packages
- * command ```dotnet run``` or ```dotnet watch run``` in terminal.
+ * Checkout to ```dev``` branch
+ * Install required nuget packages
+ * Run Command ```dotnet run``` or ```dotnet watch run``` in terminal.
 
 # Features
 * Auth
@@ -29,11 +29,11 @@
   * Create other user using default ```admin credential```
       * username: ```Admin```
       * password: ```Admin@123```
-  * create customer
-  * create account types like (Savings, Current etc)
+  * Create customer
+  * Create account types like (Savings, Current etc)
   * Create account for ```Customers```
-  * now login as ```Customer``` use default password for login ```User@432!```
-  * perform ```deposit``` and ```withdraw``` in Transaction controller
+  * Now login as ```Customer``` use default password for login ```User@432!```
+  * Perform ```deposit``` and ```withdraw``` in Transaction controller
   * Perform ```fund transfer``` in ```fundTransfer``` controller
   * Check transaction history.
   * Check account statement in report controller
