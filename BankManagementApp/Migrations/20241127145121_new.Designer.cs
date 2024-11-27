@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankManagementApp.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20241127120919_emailaddincustomer")]
-    partial class emailaddincustomer
+    [Migration("20241127145121_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,6 +144,24 @@ namespace BankManagementApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin-user-id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "bff84398-f99f-453f-a7e8-d5b4dd0ac6cf",
+                            Email = "admin@bank.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@BANK.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFuolBShzzwH0Umc/Ud/wor+jh/9v1zMfjjDsC+3VgCKC1wYrryx5QljsWpzINIAAQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("BankManagementApp.Models.Customer", b =>
@@ -204,27 +222,6 @@ namespace BankManagementApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FundTransfers");
-                });
-
-            modelBuilder.Entity("BankManagementApp.Models.Test", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("BankManagementApp.Models.Transaction", b =>
@@ -308,19 +305,19 @@ namespace BankManagementApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4bd671c7-3b98-404c-85a3-5a838b9cd316",
+                            Id = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "16bae9ae-3c1d-40e8-bbcd-7d0f4efb196b",
+                            Id = "2",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "ffefb5a0-1e8e-4abb-85c3-ecc32d5efb27",
+                            Id = "3",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -411,6 +408,13 @@ namespace BankManagementApp.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "admin-user-id",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

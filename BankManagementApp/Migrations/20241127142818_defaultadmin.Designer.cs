@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankManagementApp.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20241125144817_identity")]
-    partial class identity
+    [Migration("20241127142818_defaultadmin")]
+    partial class defaultadmin
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,14 +40,14 @@ namespace BankManagementApp.Migrations
                     b.Property<int>("AccountTypeId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("OpenedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("balance")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("isMultiCurrency")
                         .HasColumnType("bit");
@@ -144,6 +144,24 @@ namespace BankManagementApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin-user-id",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "bc173e7b-fa9f-4de4-a16b-b4f8fcd2058e",
+                            Email = "admin@bank.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@BANK.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL092no3yySk+3cRigpc1eOZCMyeBXrsL8GZQw3Yruk4p9f2bCuHJMb2ABko+aszXQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("BankManagementApp.Models.Customer", b =>
@@ -165,23 +183,6 @@ namespace BankManagementApp.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("BankManagementApp.Models.Test", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -192,7 +193,35 @@ namespace BankManagementApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("BankManagementApp.Models.FundTransfer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("TransferAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TransferFrom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TransferTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TransferTo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TransferTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FundTransfers");
                 });
 
             modelBuilder.Entity("BankManagementApp.Models.Transaction", b =>
@@ -226,6 +255,27 @@ namespace BankManagementApp.Migrations
                     b.ToTable("Transactions");
                 });
 
+            modelBuilder.Entity("BankManagementApp.Models.TransferType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TransferTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransferTypes");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -251,6 +301,26 @@ namespace BankManagementApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Employee",
+                            NormalizedName = "EMPLOYEE"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -338,6 +408,13 @@ namespace BankManagementApp.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "admin-user-id",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
