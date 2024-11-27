@@ -2,6 +2,7 @@ using BankManagementApp.DTOs.Accounts;
 using BankManagementApp.DTOs.Transaction;
 using BankManagementApp.Mappers;
 using BankManagementApp.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankManagementApp.Controllers
@@ -45,6 +46,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Employee")] 
         public async Task<IActionResult> GetAllAccount()
         {
             var accountType = await _accountRepo.GetAllAccount();
