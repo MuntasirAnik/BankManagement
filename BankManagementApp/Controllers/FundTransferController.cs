@@ -4,6 +4,7 @@ using BankManagementApp.DTOs.FundTransfer;
 using BankManagementApp.DTOs.Transaction;
 using BankManagementApp.Mappers;
 using BankManagementApp.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankManagementApp.Controllers
@@ -18,6 +19,7 @@ namespace BankManagementApp.Controllers
             _fundTransferBLL = fundTransferBLL;
         }
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Create([FromBody] CreateFundTransferDto createFundTransferDto)
         {
             if (!ModelState.IsValid)

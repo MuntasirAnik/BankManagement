@@ -6,6 +6,7 @@ using BankManagementApp.DTOs.Customer;
 using BankManagementApp.Interfaces;
 using BankManagementApp.Mappers;
 using BankManagementApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankManagementApp.Controllers
@@ -21,6 +22,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Create([FromBody] CreateCustomerDto customerDto)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -30,6 +32,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> GetAllCustomer()
         {
             var customer = await _customerRepo.GetAllAsync();
@@ -41,6 +44,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> GetById([FromRoute]int id)
         {
             var customer = await _customerRepo.GetByIdAsync(id);

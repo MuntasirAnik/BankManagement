@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BankManagementApp.DTOs.Transaction;
 using BankManagementApp.Mappers;
 using BankManagementApp.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankManagementApp.Controllers
@@ -22,6 +23,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Create([FromBody] CreateTransactionDto transactionDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -36,20 +38,14 @@ namespace BankManagementApp.Controllers
                 {
                     account.Balance = transactionDto.Amount;
                 }
-                // account.Balance += transactionDto.Amount; 
             }
             else
             {
                 account.Balance = -transactionDto.Amount;
-                // if (account.Balance < transactionDto.Amount)
-                //     return BadRequest("Insufficient balance.");
-
-                // account.Balance -= transactionDto.Amount; 
             }
             var transaction = transactionDto.ToCreateTransaction();
 
             await _transaactionRepo.CreateTransaction(transaction);
-            // await _accountRepo.UpdateAccount(account);
 
             return Ok(new
             {
@@ -60,6 +56,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet("account/{accountId:int}")]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         public async Task<IActionResult> GetAllTrasnsactionBbyAccountId(int accountId)
         {
             var transactions = await _transaactionRepo.GetAllTransactionByAccountId(accountId);
@@ -71,6 +68,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet("counttodaystransaction/{accountId:int}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> CountTransaction(int accountId)
         {
             var transactions = await _transaactionRepo.GetTodaysTransactionCount(accountId);
@@ -82,6 +80,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee,Customer")]
         [Route("transactionsbyuser/{customerId:int}/{accountId:int}/{startDate:datetime}/{endDate:datetime}")]
         public async Task<IActionResult> GetTrasnsactionsByUserAndAccount(
             [FromRoute] int customerId, 

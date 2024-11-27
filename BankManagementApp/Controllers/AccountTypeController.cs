@@ -3,6 +3,7 @@ using BankManagementApp.DTOs.AccountType;
 using BankManagementApp.Interfaces;
 using BankManagementApp.Mappers;
 using BankManagementApp.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankManagementApp.Controllers
@@ -21,6 +22,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> GetAllAccountType()
         {
             var accountType = await _accountTypeRepo.GetAllAsync();
@@ -32,6 +34,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var accountType = await _accountTypeRepo.GetByIdAsync(id);
@@ -43,6 +46,7 @@ namespace BankManagementApp.Controllers
         }    
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Create([FromBody] CreateAccoutnTypeDto accoutnTypeDto)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -52,6 +56,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin,Employee")]
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateAccountTypeDto updateAccountTypeDto)
         {

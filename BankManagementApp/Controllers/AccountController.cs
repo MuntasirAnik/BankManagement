@@ -21,6 +21,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Create([FromBody] CreateAccountDto accountDto)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
@@ -46,7 +47,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Employee")] 
+        [Authorize(Roles = "Admin,Employee")] 
         public async Task<IActionResult> GetAllAccount()
         {
             var accountType = await _accountRepo.GetAllAccount();
@@ -58,6 +59,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> GetAllAccountByAccountId(int id)
         {
             var accounts = await _accountRepo.GetAccountByAccountId(id);
@@ -69,6 +71,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet("customer/{customerId:int}")]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> GetAllAccountByCustomer(int customerId)
         {
             var accounts = await _accountRepo.GetAllAccountByCustomerId(customerId);

@@ -87,6 +87,7 @@ builder.Services.AddScoped<TransaactionRepository>();
 builder.Services.AddScoped<TransferTypeRepository>();
 builder.Services.AddScoped<FundTransferRepository>();
 builder.Services.AddScoped<FundTransferBLL>();
+builder.Services.AddScoped<AccountBLL>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 

@@ -6,6 +6,7 @@ using BankManagementApp.DTOs.Transaction;
 using BankManagementApp.DTOs.TransferType;
 using BankManagementApp.Mappers;
 using BankManagementApp.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankManagementApp.Controllers
@@ -21,6 +22,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> GetAll()
         {
             var transferTypes = await _transferRepo.getAllAsync();
@@ -31,6 +33,7 @@ namespace BankManagementApp.Controllers
             return Ok(transferTypes);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> Create([FromBody] CreateTransferTypeDto createTransferTypeDto)
         {
             if(!ModelState.IsValid) return BadRequest(ModelState);
