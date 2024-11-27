@@ -13,6 +13,10 @@ namespace BankManagementApp.DTOs.Customer
         [Required]
         public string Address { get; set; } = string.Empty;
         [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        
+        [Required]
         [MaxLength(11, ErrorMessage = "Contact no cannot be over 11 Characters")]
         public string ContactNo { get; set; } = string.Empty;
     }

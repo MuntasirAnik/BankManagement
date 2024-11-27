@@ -19,7 +19,7 @@ namespace BankManagementApp.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Employee,Manager,Admin")]
+        [Authorize(Roles = "Customer,Employee,Manager,Admin")]
         [Route("accountstatement/{customerId:int}/{accountId:int}/{startDate:datetime}/{endDate:datetime}")]
         public async Task<IActionResult> AccountStatement(
             [FromRoute] int customerId, 

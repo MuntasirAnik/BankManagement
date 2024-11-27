@@ -33,7 +33,7 @@ namespace BankManagementApp.Controllers
         }
         
         [HttpPost("register/admin")]
-        [Authorize(Roles = "Admin")] 
+        // [Authorize(Roles = "Admin")] 
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterDto registerDto)
         {
             return await RegisterWithRole(registerDto, "Admin");

@@ -27,6 +27,7 @@ namespace BankManagementApp.Mappers
             {
                 Name = customerDto.Name,
                 Address = customerDto.Address,
+                Email = customerDto.Email,
                 ContactNo = customerDto.ContactNo
             };
         }

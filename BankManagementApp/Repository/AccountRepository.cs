@@ -69,28 +69,34 @@ namespace BankManagementApp.Repository
             var startDateParam = new SqlParameter("@StartDate", startDate);
             var endDateParam = new SqlParameter("@EndDate", endDate);
 
+           
             var query = @"
                 SELECT cust.Name, cust.Address, cust.ContactNo, acc.accountNo,
-                    (SELECT SUM(t.Amount)
-                    FROM Transactions t
-                    WHERE t.AccountId = 1 
-                    AND CONVERT(DATE, t.TransactionDate) < '2024-11-26') AS OpeningBalance,
-                    SUM(CASE WHEN IsCredit = 1 THEN Amount ELSE 0 END) AS TotalCredit,
-                    SUM(CASE WHEN IsCredit = 0 THEN Amount ELSE 0 END) AS TotalDebit,
-                    ( 
+                    ISNULL(
                         (SELECT SUM(t.Amount)
                         FROM Transactions t
-                        WHERE t.AccountId = 1 
-                        AND CONVERT(DATE, t.TransactionDate) < '2024-11-26') 
-                        + SUM(CASE WHEN IsCredit = 1 THEN Amount ELSE 0 END)
-                        - SUM(CASE WHEN IsCredit = 0 THEN Amount ELSE 0 END)
+                        WHERE t.AccountId = @accountId
+                        AND CONVERT(DATE, t.TransactionDate) < @startDate), 0
+                    ) AS OpeningBalance,
+                    ISNULL(SUM(CASE WHEN t.IsCredit = 1 THEN t.Amount ELSE 0 END), 0) AS TotalCredit,
+                    ISNULL(SUM(CASE WHEN t.IsCredit = 0 THEN t.Amount ELSE 0 END), 0) AS TotalDebit,
+                    (
+                        ISNULL(
+                            (SELECT SUM(t.Amount)
+                            FROM Transactions t
+                            WHERE t.AccountId = @accountId 
+                            AND CONVERT(DATE, t.TransactionDate) < @startDate), 0
+                        )
+                        + ISNULL(SUM(CASE WHEN t.IsCredit = 1 THEN t.Amount ELSE 0 END), 0)
+                        - ISNULL(SUM(CASE WHEN t.IsCredit = 0 THEN t.Amount ELSE 0 END), 0)
                     ) AS ClosingBalance
-                FROM Transactions t
-                INNER JOIN Accounts acc on acc.Id = t.AccountId
-                INNER JOIN Customers cust on cust.Id = acc.CustomerId
-                WHERE AccountId = 1 
-                AND CONVERT(DATE, TransactionDate) BETWEEN '2024-11-26' AND '2024-11-27'
-                GROUP By cust.Name, cust.Address, cust.ContactNo, acc.accountNo";
+                FROM Accounts acc
+                LEFT JOIN Transactions t ON acc.Id = t.AccountId 
+                    AND CONVERT(DATE, t.TransactionDate) BETWEEN @startDate AND @endDate
+                INNER JOIN Customers cust ON cust.Id = acc.CustomerId
+                WHERE acc.Id = @accountId
+                GROUP BY cust.Name, cust.Address, cust.ContactNo, acc.accountNo";
+
 
             var result = await _context.Database.SqlQueryRaw<AccountSummaryDto>(
                 query, customerParam, accountParam, startDateParam, endDateParam
