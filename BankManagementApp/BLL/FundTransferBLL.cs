@@ -22,7 +22,12 @@ namespace BankManagementApp.BLL
 
         public async Task<(bool IsSuccess, string ErrorMessage, decimal NewBalance)> ProcessFundTransfer(CreateFundTransferDto createFundTransferDto)
         {
+            
             var accountFrom = await _accountRepo.GetAccountByNo(createFundTransferDto.TransferFrom);
+            if(await _transactionRepo.GetTodaysTransactionCount(accountFrom.Id) == 2)
+            {
+                return (false, "You have already reached your daily transaction limit.", 0);
+            }
             var accountTo = await _accountRepo.GetAccountByNo(createFundTransferDto.TransferTo);
 
             if (accountFrom == null || accountTo == null)

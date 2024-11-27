@@ -69,5 +69,30 @@ namespace BankManagementApp.Controllers
             }
             return Ok(transactions);
         }
+
+        [HttpGet("counttodaystransaction/{accountId:int}")]
+        public async Task<IActionResult> CountTransaction(int accountId)
+        {
+            var transactions = await _transaactionRepo.GetTodaysTransactionCount(accountId);
+            if(transactions == null)
+            {
+                return NotFound();
+            }
+            return Ok(transactions);
+        }
+
+        [HttpGet]
+        [Route("transactionsbyuser/{customerId:int}/{accountId:int}/{startDate:datetime}/{endDate:datetime}")]
+        public async Task<IActionResult> GetTrasnsactionsByUserAndAccount(
+            [FromRoute] int customerId, 
+            [FromRoute] int accountId,
+            [FromRoute] DateTime startDate, 
+            [FromRoute] DateTime endDate)
+        {
+            var transactions = await _transaactionRepo.GetTransactionByUserAndAccount(customerId, accountId, startDate, endDate);
+            if(transactions == null) return null;
+            return Ok(transactions);    
+
+        }
     }
 }
